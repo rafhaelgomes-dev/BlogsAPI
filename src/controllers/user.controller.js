@@ -24,7 +24,21 @@ const getAllUser = async (_req, res) => {
   }
 };
 
+const getById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await userServices.getById(id);
+    if (result.type) {
+      return res.status(result.statusCode).send({ message: result.message });
+    }
+    res.status(result.statusCode).send(result.message);
+  } catch (error) {
+    res.status(400).send(error);
+  }
+};
+
 module.exports = {
   createUser,
   getAllUser,
+  getById,
 };
