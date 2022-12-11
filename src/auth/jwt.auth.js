@@ -12,4 +12,13 @@ const createToken = (user) => {
     return token;
 };
 
-module.exports = { createToken };
+const validateToken = (token) => {
+  try {
+    const { data } = jwt.verify(token, JWT_SECRET);
+    return data;
+  } catch (error) {
+    return false;
+  }
+};
+
+module.exports = { createToken, validateToken };
