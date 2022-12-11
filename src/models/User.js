@@ -13,6 +13,8 @@ const User = (sequelize, DataTypes) => {
     timestamps: false,
   });
 
+  User.hasMany(models.Category, { foreignKey: 'user_id', as: 'blogPosts' })
+
   return User;
 };
 
