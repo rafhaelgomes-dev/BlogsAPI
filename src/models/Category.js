@@ -1,7 +1,7 @@
 'use strict';
 
 const Category = (sequelize, DataTypes) => {
-  const User = sequelize.define("Category", {
+  const Category = sequelize.define("Category", {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     displayName: DataTypes.STRING,
     name: DataTypes.STRING,
@@ -14,4 +14,4 @@ const Category = (sequelize, DataTypes) => {
   return Category;
 };
 
-module.exports = User;
+module.exports = Category;
