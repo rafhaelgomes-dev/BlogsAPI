@@ -1,4 +1,4 @@
-const { createPost, getAllPost } = require('../services/blogsPost.services');
+const { createPost, getAllPost, getById } = require('../services/blogsPost.services');
 
 const create = async (req, res) => {
   try {
@@ -33,7 +33,22 @@ const getPost = async (_req, res) => {
   }
 };
 
+const getPostById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await getById(id);
+    if (result.type) {
+      return res.status(result.statusCode).send({ message: result.message });
+    }
+    
+    return res.status(result.statusCode).send(result.message);
+  } catch (error) {
+    res.status(400).send({ message: 'error' });
+  }
+};
+
 module.exports = {
   create,
   getPost,
+  getPostById,
 };
