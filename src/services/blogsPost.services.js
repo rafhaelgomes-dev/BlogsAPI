@@ -9,7 +9,7 @@ const returnValidatefields = {
 const returnValidateCategories = { 
   type: 'invalid', 
   statusCode: 400, 
-  message: 'or more "categoryIds" not found' }; 
+  message: 'one or more "categoryIds" not found' }; 
 
 const createPost = async (data) => {
   const { title, content, categoryIds } = data.post;
@@ -19,7 +19,6 @@ const createPost = async (data) => {
   let categoriasId = [];
   
   const category = await Category.findAll();
-  
   category.forEach((e) => { categoriasId = [...categoriasId, e.dataValues.id]; });
 
   if (!categoryIds.every((e) => categoriasId.includes(e))) {
