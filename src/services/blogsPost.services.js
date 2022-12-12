@@ -65,8 +65,35 @@ const getById = async (id) => {
   return { type: null, statusCode: 200, message: getPostId };
 };
 
+  const editPostUser = async (id, token, data) => {
+  const { title, content } = data;
+
+  if (!title || !content) { return returnValidatefields; }
+
+  const getPostId = await BlogPost.findOne({
+    where: { id },
+    include: [{ model: User, as: 'user', attributes: { exclude: ['password'] } }],
+  });
+  
+  const email = validateToken(token);
+
+  if (getPostId.user.email === email) {
+    await BlogPost.update({ title, content }, { where: { id } });
+
+    const findPostUpdate = await BlogPost.findOne({ 
+      where: { id }, 
+      include: [{ model: User, as: 'user', attributes: { exclude: ['password'] } }, 
+      { model: Category, as: 'categories', through: { attributes: [] } }] });
+
+    return { type: null, statusCode: 200, message: findPostUpdate };
+  }
+
+  return { type: 'Unauthorized', statusCode: 401, message: 'Unauthorized user' };
+};
+
 module.exports = {
   createPost,
   getAllPost,
   getById,
+  editPostUser,
 };

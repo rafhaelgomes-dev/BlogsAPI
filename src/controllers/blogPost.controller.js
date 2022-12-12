@@ -1,4 +1,4 @@
-const { createPost, getAllPost, getById } = require('../services/blogsPost.services');
+const { createPost, getAllPost, getById, editPostUser } = require('../services/blogsPost.services');
 
 const create = async (req, res) => {
   try {
@@ -47,8 +47,24 @@ const getPostById = async (req, res) => {
   }
 };
 
+const editPost = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const token = req.header('Authorization');
+    const result = await editPostUser(id, token, req.body);
+    if (result.type) {
+      return res.status(result.statusCode).send({ message: result.message });
+    }
+    
+    return res.status(result.statusCode).send(result.message);
+  } catch (error) {
+    res.status(400).send({ message: 'error' });
+  }
+};
+
 module.exports = {
   create,
   getPost,
   getPostById,
+  editPost,
 };
