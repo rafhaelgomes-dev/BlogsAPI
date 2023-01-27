@@ -21,7 +21,7 @@ Um exemplo já está disponível no arquivo `.env.example`, bastando renomear pa
 
 ## Utilização
 
-- Para clonar o projeto: `git clone git@github.com:joao-pasip/Project-BlogsAPI.git`.
+- Para clonar o projeto: `git clone git@github.com:rafhaelgomes-dev/BlogsAPI.git`.
 
 - Para instalar as dependências basta rodar o comando `npm install` e acessar as funcionalidades da aplicação.
 
